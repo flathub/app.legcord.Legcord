@@ -64,23 +64,23 @@ modules:
 
           - chmod +x Legcord.AppImage
           - ./Legcord.AppImage --appimage-extract
-          - desktop-file-edit --set-key="Exec" --set-value="startlegcord %U" --set-icon=$FLATPAK_ID
-            squashfs-root/legcord.desktop
           - |
               for icon in 16 32 48 64 128 256 512; do
                   install -D squashfs-root/usr/share/icons/hicolor/${icon}x${icon}/apps/legcord.png \
                       /app/share/icons/hicolor/${icon}x${icon}/apps/app.legcord.Legcord.png
               done
-          - install -D squashfs-root/legcord.desktop /app/share/applications/app.legcord.Legcord.desktop
+          - install -D app.legcord.Legcord.desktop /app/share/applications/app.legcord.Legcord.desktop
           - install -Dm755 startlegcord /app/bin/startlegcord
           - install -D app.legcord.Legcord.metainfo.xml -t /app/share/metainfo/
           - mv squashfs-root /app/bin/legcord
 
       sources:
           # - generated-sources.json
-
           - type: file
             path: startlegcord
+        
+          - type: file
+            path: app.legcord.Legcord.desktop
 
           - type: file
             url: https://github.com/Legcord/Legcord/releases/download/v1.3.0/Legcord-1.3.0-linux-arm64.AppImage
