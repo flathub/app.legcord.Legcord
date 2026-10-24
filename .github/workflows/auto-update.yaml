@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # - uses: actions/setup-python@v7
-      #   with:
-      #     python-version: "3.12"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
 
       - name: Setup environment variables
         run: |
@@ -19,24 +19,17 @@ jobs:
           APP_VERSION=$(echo "$APP_URL" | sed -E 's|.*/v([0-9.]+)\.tar\.gz|\1|')
           echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
-#       - name: Setup flatpak-builder-tools
-#         run: |
-#           git clone --depth=1 https://github.com/flatpak/flatpak-builder-tools ${FLATPAK_BUILDER_TOOLS_DIR}
-#           pip install --user pipx && pipx install ${FLATPAK_BUILDER_TOOLS_DIR}/node
-#           pip install --user toml aiohttp
-#
-#       - name: Update Node.js generated sources
-#         run: |
-#           git clone https://github.com/Legcord/Legcord.git --depth=1 --branch=v${APP_VERSION} /tmp/app
-#
-#           flatpak-node-generator pnpm /tmp/app/pnpm-lock.yaml --node-sdk-extension org.freedesktop.Sdk.Extension.node26 --electron-node-headers --pnpm-store-version v11 -o generated-sources.json
+      - name: Setup flatpak-builder-tools
+        run: |
+          git clone --depth=1 https://github.com/flatpak/flatpak-builder-tools ${FLATPAK_BUILDER_TOOLS_DIR}
+          pip install --user pipx && pipx install ${FLATPAK_BUILDER_TOOLS_DIR}/node
+          pip install --user toml aiohttp
 
-      - name: Fetch generated-sources.json from release
-        uses: robinraju/release-downloader@v1
-        with:
-            repository: 'Legcord/Legcord'
-            tag: v${{ env.APP_VERSION }}
-            fileName: 'generated-sources.json'
+      - name: Update Node.js generated sources
+        run: |
+          git clone https://github.com/Legcord/Legcord.git --depth=1 --branch=v${APP_VERSION} /tmp/app
+
+          flatpak-node-generator pnpm /tmp/app/pnpm-lock.yaml --node-sdk-extension org.freedesktop.Sdk.Extension.node26 --electron-node-headers --pnpm-store-version v11 -o generated-sources.json
 
       - name: Commit updates
         run: |
