@@ -3,7 +3,7 @@
 app-id: app.legcord.Legcord
 
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '25.08'
+runtime-version: &runtime-version '26.08'
 sdk: org.freedesktop.Sdk
 # sdk-extensions:
 #     - org.freedesktop.Sdk.Extension.node26
@@ -110,18 +110,18 @@ modules:
           url-query: .assets[] | select(.name == "app.legcord.Legcord.metainfo.xml")
             | .browser_download_url
 
-          # maybe change to type: git ? - nvm scratch that, it breaks if type: git
-          # - type: archive
-          #   url: https://github.com/Legcord/Legcord/archive/v1.3.0.tar.gz
-          #   # i wonder if the version will change as well... if it doesnt, it's prob not that big of an issue anyway lol
-          #   dest-filename: Legcord-1.3.0.tar.gz
-          #   sha512: c6cd36d5d938bbae558af892522297819d341320e7801841e2862a7fb84bcca35956e9ae65d67fe85e696ef95250e15a46e63cd8151ff347f33dff357431fc65
-          #   x-checker-data:
-          #       type: json
-          #       url: https://api.github.com/repos/Legcord/Legcord/releases/latest
-          #       version-query: .tag_name | sub("v"; "")
-          #       url-query: .tarball_url
-          #       is-main-source: true
+    # maybe change to type: git ? - nvm scratch that, it breaks if type: git
+      # - type: archive
+      #   url: https://github.com/Legcord/Legcord/archive/v1.3.0.tar.gz
+      #     # i wonder if the version will change as well... if it doesnt, it's prob not that big of an issue anyway lol
+      #   dest-filename: Legcord-1.3.0.tar.gz
+      #   sha512: c6cd36d5d938bbae558af892522297819d341320e7801841e2862a7fb84bcca35956e9ae65d67fe85e696ef95250e15a46e63cd8151ff347f33dff357431fc65
+      #   x-checker-data:
+      #           type: json
+      #           url: https://api.github.com/repos/Legcord/Legcord/releases/latest
+      #           version-query: .tag_name | sub("v"; "")
+      #           url-query: .tarball_url
+      #           is-main-source: true
 
           # # Follows upstream PNPM version. Though it's not technically needed, just to be safe we follow exactly.
           # - type: archive
