@@ -37,10 +37,10 @@ jobs:
 
           [[ ! $(git status --porcelain) ]] && exit 0
 
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git config user.name "Workflow trigger"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add generated-sources.json
           git commit -m 'Update generated sources'
 
-          git push https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}
+          git push
