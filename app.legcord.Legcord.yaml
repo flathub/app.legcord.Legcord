@@ -47,7 +47,7 @@ modules:
               ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
               ELECTRON_OFFLINE_BUILD: "1"
               ELECTRON_BUILDER_OFFLINE: "true"
-              # ELECTRON_DOWNLOAD_CACHE_MODE: "1"
+              ELECTRON_DOWNLOAD_CACHE_MODE: "1"
               DEBUG: "electron-builder"
               pnpm_config_nodedir: /usr/lib/sdk/node26
               pnpm_config_store_dir: /run/build/Legcord/flatpak-node/pnpm-store
@@ -109,14 +109,16 @@ modules:
       - type: file
         path: startlegcord
 
+      - type: file
+        url: https://github.com/electron-userland/electron-builder-binaries/releases/download/appimage%401.0.3/appimage-tools-runtime-20251108.tar.gz
+        sha512: be41b119ff9a5782900e4f03c6134493b9a216a23a9d6bb5e2b887c9190345a6d58bc987588e66e31a6abd19c22323c10c003aa0fca223d71bd21a145d931200
+        dest: flatpak-node/cache/electron-builder/appimage@1.0.3/
 
-          #   # idk if this is still needed.
-          # - type: archive
-          #   url: https://github.com/electron-userland/electron-builder-binaries/releases/download/appimage%401.0.3/appimage-tools-runtime-20251108.tar.gz
-          #   sha512: be41b119ff9a5782900e4f03c6134493b9a216a23a9d6bb5e2b887c9190345a6d58bc987588e66e31a6abd19c22323c10c003aa0fca223d71bd21a145d931200
-          #   dest: flatpak-node/cache/electron-builder/appimage@1.0.3/appimage/tools/runtime-20251108-1nlug
-          #   # strip-components: 0 # REQUIRED or else Error moving file will occur.
+      - type: file
+        url: https://github.com/electron-userland/electron-builder-binaries/releases/download/icons%401.2.3/icons-bundle.tar.gz
+        sha512: fa2cf38d723ebc14f8e247155b08221c3ff7fe9897b4dc151757fd03b7d29f5eaec340fd0f45f2399008c275e4255214ab1bf3bff34db7c70282582e87de0ec7
+        dest: flatpak-node/cache/electron-builder/icons@1.2.3/
 
-          #   # must come AFTER the legcord source.
-          # - type: patch
-          #   path: electronCache.patch
+      # must come AFTER the legcord source.
+      - type: patch
+        path: electronCache.patch
