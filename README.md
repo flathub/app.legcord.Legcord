@@ -62,3 +62,12 @@ Suggested changes to accomplish these needs :
 
 1. Add `--filesystem=xdg-run/.flatpak/app.legcord.Legcord:create` and `--filesystem=xdg-run/discord-ipc-0` to the global Flatpak permissions
 2. Restart
+
+
+## Building locally
+Contributors/testing purposes only. No support will be provided on local builds.
+Run the following:
+```sh
+flatpak run --command=flathub-build org.flatpak.Builder app.legcord.Legcord.yaml --force-clean --user --install --disable-rofiles-fuse
+flatpak run app.legcord.Legcord
+```
