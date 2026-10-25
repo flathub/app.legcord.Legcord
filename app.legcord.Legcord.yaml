@@ -86,11 +86,9 @@ modules:
       - mv squashfs-root /app/bin/legcord
 
     sources:
-#     maybe change to type: git ? - nvm scratch that, it breaks if type: git
       - type: archive
         url: https://github.com/Legcord/Legcord/archive/v1.3.1.tar.gz
-          # i wonder if the version will change as well... if it doesnt, it's prob not that big of an issue anyway lol
-        dest-filename: Legcord-1.3.0.tar.gz
+        dest-filename: Legcord-1.3.1.tar.gz
         sha512: 686ccd6d80070a22838159f96cf83d2de1eb6cf0a8ea39db31b4fafbd308b51ccad6f52ee86f9af113513d3b927fb0458294d01992fedd7dc14667f5e7b3601d
         x-checker-data:
                 type: json
@@ -116,14 +114,6 @@ modules:
         dest: pnpm
 
       - generated-sources.json
-        # url: https://github.com/Legcord/Legcord/releases/download/v1.3.1/generated-sources.json
-        # sha512: 6f094c731accbd46a30ab09a0d99b20e27bedd8329a3b6b12324fb6dc6241cd7fcff001c12040be9748236c066a7f67e8ed59f29e1b79ef9f4807b8acccc96f6
-        # x-checker-data:
-        #   type: json
-        #   url: https://api.github.com/repos/Legcord/Legcord/releases/latest
-        #   version-query: .tag_name | sub("v"; "")
-        #   url-query: .assets[] | select(.name == "generated-sources.json")
-        #     | .browser_download_url
 
       - type: file
         path: startlegcord
