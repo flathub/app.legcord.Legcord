@@ -59,7 +59,7 @@ modules:
       - pnpm build
       # We build to appimage as it automatically generates .desktop and icons. Plus i've already written
       # the stuff for the appimage, and I know it works.
-      - . flatpak-node/electron-builder-arch-args.sh; pnpm electron-builder -l appimage $ELECTRON_BUILDER_ARCH_ARGS
+      - . flatpak-node/electron-builder-arch-args.sh; pnpm electron-builder -l appimage $ELECTRON_BUILDER_ARCH_ARGS --publish=never
       - mv dist/Legcord-*.AppImage Legcord.AppImage
 
       - chmod +x Legcord.AppImage
