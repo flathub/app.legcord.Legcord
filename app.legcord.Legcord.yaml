@@ -55,6 +55,15 @@ modules:
     build-commands:
       - ln -s ./pnpm.cjs ./pnpm/bin/pnpm
       - chmod +x pnpm/bin/pnpm.cjs
+       # this is NEEDED to avoid ReferenceError as the cache directory has a parent with a package.json
+       # that specifies type: module, but icon-tool is CJS and not a .cjs file.
+       # see https://nodejs.org/api/packages.html#type
+      - |
+        tee flatpak-node/cache/electron-builder/package.json <<EOF
+        {
+          "type": "commonjs"
+        }
+        EOF
       - pnpm install --frozen-lockfile --offline --store-dir $FLATPAK_BUILDER_BUILDDIR/flatpak-node/pnpm-store --config.trustLockfile=true
       - pnpm build
       # We build to appimage as it automatically generates .desktop and icons. Plus i've already written
@@ -90,7 +99,17 @@ modules:
                 url-query: .tarball_url
                 is-main-source: true
 
-          # Follows upstream PNPM version. Though it's not technically needed, just to be safe we follow exactly.
+      - type: file
+        url: https://github.com/Legcord/Legcord/releases/download/v1.3.1/app.legcord.Legcord.metainfo.xml
+        sha512: cafa171a3384f5dd8ded13298d3554a54ec82cb1b6aae0b02e30d844b655845ee4168ad8a15539364d75ed342617eff0d1e3e1b99dcaf980c1fbe0a655bcf5eb
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/Legcord/Legcord/releases/latest
+          version-query: .tag_name | sub("v"; "")
+          url-query: .assets[] | select(.name == "app.legcord.Legcord.metainfo.xml")
+            | .browser_download_url
+
+      # Follows upstream PNPM version. Though it's not technically needed, just to be safe we follow exactly.
       - type: archive
         url: https://registry.npmjs.org/pnpm/-/pnpm-11.10.0.tgz
         sha512: 0b7f8b98060031904c017e3a41eb187a16d40eeb829b95c4f8cb03681761fc4ab53dd219115b9b447f4dce1a05a214764461e7d3703392a9f32f9511ce8c86c8
